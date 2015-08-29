@@ -6,10 +6,11 @@
         <title>jQuery-consoler demo</title>
         <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="jquery-consoler.js"></script>
+        <link rel="stylesheet" href="jquery-consoler.css">
         <script>
             $(function(){
 
-                var con = new $Consoler();
+                window.con = new $Consoler();
                 con.log("Log");
                 con.log("Array", [1,2,3]);
                 con.log("Object", {a:123, b:"3:21"});

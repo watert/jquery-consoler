@@ -20,66 +20,11 @@ addCSS = (rules)-> $("<style>",{type:"text/css",html:rules}).appendTo($("body"))
 class ConsolerView extends BaseView
     id: "consoler"
     className: "consoler-mask"
-    css:"""
-        body { transition:all .3s; }
-        body.show-console > :not(.consoler-mask) {  -webkit-filter: blur(3px); -moz-filter: blur(3px);
-            -o-filter: blur(3px); -ms-filter: blur(3px); filter: blur(3px);
-        }
-        .show-console .consoler-mask {
-            height:100%; width:100%; background: rgba(255,255,255,.6);
-        }
-        .show-console #consoler {  height:60%; max-width: 400px; position: absolute; bottom: 0; right: 0; }
-        .show-console #consoler .logs { display:block; }
-        .show-console #consoler .status { text-align:left; }
-        .consoler-mask, .consoler-mask * { margin: 0; padding: 0; border: 0;
-            font-size: 100%; font: inherit; vertical-align: baseline; }
-        .consoler-mask { position:fixed; overflow:hidden; bottom:0;right:0;
-            width:140px; transition:all .3s;
-            font-size:10px; font-family: monospace, Monaco, Consolas;
-        }
-        #consoler { box-sizing:border-box; padding:10px; }
-        #consoler .dialog { height:100%; overflow:hidden; border:1px solid #DDD;
-            background:#F9F9F9; border-radius:6px;
-            display:flex; space-between: flex-end; flex-direction:column;
-        }
-
-        @media (max-width: 420px) {
-            .show-console #consoler { width:100%; }
-        }
-
-        #consoler .logs {display:none; overflow:auto; }
-        #consoler .logs ul {padding:0; margin:0; list-style:none;}
-        #consoler .logs pre {margin:0; word-wrap: break-word; }
-        #consoler .logs pre .object { color:blue; }
-
-        #consoler .status {padding:10px; text-align:right; transition:all .3s;
-            background:#f7F7F7; border-top:1px solid #DDD;}
-        #consoler .status > * {display:inline-block;}
-
-        #consoler .log-item { background:#FFF; border-bottom: 1px solid #E7E7E7;
-            padding: 2px 8px; line-height: 1.4em;}
-        #consoler .log-item:first-child { border-radius:4px 4px 0 0; }
-        #consoler .log-item.log, #consoler .status .log { color:#666; }
-        #consoler .log-item.warn {background: hsl(60, 100%, 95%); border-color: hsl(45, 100%, 85%); }
-        #consoler .log-item.warn, #consoler .status .warn { color:hsl(30, 100%, 60%); }
-        #consoler .log-item.info, #consoler .status .info { color:hsl(210, 100%, 75%); }
-        #consoler .log-item.debug { border-color: hsl(240, 100%, 90%); }
-        #consoler .log-item.debug, #consoler .status .debug { color:blue; }
-        #consoler .log-item.success, #consoler .status .success { color:green; }
-        #consoler .log-item.error { background:hsl(0, 100%, 95%); border-color:hsl(0, 100%, 90%); }
-        #consoler .log-item.error, #consoler .status .error { color:red; }
-
-        #consoler .status .type-status {
-            display:inline-block; margin-right:6px;
-        }
-    """
     initialize:()->
         @render()
-        addCSS(@css)
         @$el.appendTo($("body"))
     show:()->
-        $("body").addClass("show-console")
-
+        $body = $("body").addClass("show-console")
         @scrollToBottom()
     hide:()->
         $("body").removeClass("show-console")
@@ -97,7 +42,7 @@ class ConsolerView extends BaseView
         </div>
     """
     parseLog:(input)->
-        console.debug "parseLog", input
+        # console.debug "parseLog", input
         # if "string" is typeof input then input = "\"#{input}\""
         type = typeof input
         # if type is "number" then input = """<span class="number">#{input}</span>"""
@@ -109,7 +54,7 @@ class ConsolerView extends BaseView
     addLog:(type, args...)->
         $list = @$("ul.logs-body")
         text = $.map(args, @parseLog).join(" ")
-        console.debug args,text
+        # console.debug args,text
         html = """
             <li class="log-item #{type}">
                 <pre>#{text}</pre>
@@ -134,6 +79,12 @@ class $Consoler
     toggle:()->
         if $("body").hasClass("show-console") then @view.hide()
         else @view.show()
+    # wrapNative:()->
+    #     methods = ["log", "warn", "error", "info", "debug"]
+    #     console = window.console || {}
+    #     for method in methods
+    #         console[method] = ()=>
+    #             @[method].bind(@)(arguments...)
     addLog:(type, args...)->
         console[type](args...)
         @view.addLog(type, args...)
@@ -148,6 +99,7 @@ class $Consoler
         count++
         $status.data("count", count)
             .find(".count").text(count)
+        return null
         # @view.setStyle()
 
 
