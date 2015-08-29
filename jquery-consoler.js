@@ -8,7 +8,8 @@ BaseView = (function() {
 
   function BaseView() {
     this.$el = $("<" + this.tagName + ">", {
-      "class": this.className || ""
+      "class": this.className || "",
+      id: this.id || null
     });
     this.el = this.$el[0];
     this.$ = this.$el.find.bind(this.$el);
@@ -45,7 +46,7 @@ ConsolerView = (function(superClass) {
 
   ConsolerView.prototype.id = "consoler";
 
-  ConsolerView.prototype.className = "consoler-mask";
+  ConsolerView.prototype.className = "";
 
   ConsolerView.prototype.initialize = function() {
     this.render();
@@ -62,7 +63,7 @@ ConsolerView = (function(superClass) {
     return $("body").removeClass("show-console");
   };
 
-  ConsolerView.prototype.template = "<div id=\"consoler\">\n    <div class=\"dialog\">\n        <div class=\"logs\">\n            <ul class=\"logs-body\"></ul>\n        </div>\n        <div class=\"input\"></div>\n        <div class=\"status\">\n            <span class=\"desc\">Logs:</span>\n        </div>\n    </div>\n</div>";
+  ConsolerView.prototype.template = "<div class=\"dialog-mask\">\n    <div class=\"dialog\">\n        <div class=\"logs\">\n            <ul class=\"logs-body\"></ul>\n        </div>\n        <div class=\"input\"></div>\n    </div>\n</div>\n<div class=\"status\">\n    <span class=\"desc\">Logs:</span>\n</div>";
 
   ConsolerView.prototype.parseLog = function(input) {
     var type;

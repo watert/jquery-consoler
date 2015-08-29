@@ -1,7 +1,7 @@
 class BaseView
     tagName:"div"
     constructor:()->
-        @$el = $("<#{@tagName}>", {class: @className or ""})
+        @$el = $("<#{@tagName}>", {class: @className or "", id:@id or null})
         @el = @$el[0]
         @$ = @$el.find.bind(@$el)
         @initialize?()
@@ -19,7 +19,7 @@ addCSS = (rules)-> $("<style>",{type:"text/css",html:rules}).appendTo($("body"))
 
 class ConsolerView extends BaseView
     id: "consoler"
-    className: "consoler-mask"
+    className: ""
     initialize:()->
         @render()
         @$el.appendTo($("body"))
@@ -29,16 +29,16 @@ class ConsolerView extends BaseView
     hide:()->
         $("body").removeClass("show-console")
     template: """
-        <div id="consoler">
+        <div class="dialog-mask">
             <div class="dialog">
                 <div class="logs">
                     <ul class="logs-body"></ul>
                 </div>
                 <div class="input"></div>
-                <div class="status">
-                    <span class="desc">Logs:</span>
-                </div>
             </div>
+        </div>
+        <div class="status">
+            <span class="desc">Logs:</span>
         </div>
     """
     parseLog:(input)->
