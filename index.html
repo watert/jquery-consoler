@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>jQuery-consoler demo</title>
+        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="jquery-consoler.js"></script>
+        <script>
+            $(function(){
+
+                var con = new $Consoler();
+                con.log("Log");
+                con.log("Log2");
+                con.warn("Warn");
+                con.error("Error");
+                con.info("Infomation", "Second");
+            })
+        </script>
+    </head>
+    <body>
+        Demo
+    </body>
+</html>

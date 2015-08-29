@@ -1,0 +1,22 @@
+{
+  "name": "jquery-consoler",
+  "version": "1.0.0",
+  "description": "a console log shower with UI display",
+  "main": "jquery-consoler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watert/jquery-consoler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/watert/jquery-consoler/issues"
+  },
+  "homepage": "https://github.com/watert/jquery-consoler#readme",
+  "devDependencies": {
+    "jquery": "^2.1.4"
+  }
+}
