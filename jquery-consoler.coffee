@@ -21,7 +21,7 @@ class ConsolerView extends BaseView
     id: "consoler"
     className: ""
     initialize:()->
-        @render()
+        @render() 
         @$el.appendTo($("body"))
     show:()->
         $body = $("body").addClass("show-console")
